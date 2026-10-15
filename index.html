@@ -1,0 +1,995 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIXORA STUDIO 17.0 — Neon Creative Universe</title>
+<style>
+:root{
+  --bg:#080912;
+  --panel:#111321;
+  --panel2:#171a2b;
+  --line:rgba(160,145,255,.18);
+  --purple:#9565ff;
+  --blue:#4c9dff;
+  --pink:#ed67d7;
+  --text:#f4f2ff;
+  --muted:#8f93ad;
+  --green:#57e5bc;
+  --shadow:0 14px 35px #0007, inset 0 1px 0 #ffffff0b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%,#4324753a,transparent 32%),
+    radial-gradient(ellipse at 90% 8%,#154d8c30,transparent 34%),
+    var(--bg);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  min-height:100vh;
+}
+button,input,select,textarea{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--blue);outline-offset:3px
+}
+.topbar{
+  height:76px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 4%;gap:20px;border-bottom:1px solid var(--line);
+  background:#0a0b16d9;backdrop-filter:blur(22px);
+  position:sticky;top:0;z-index:50
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:190px}
+.logo{
+  width:43px;height:43px;border-radius:15px;
+  display:grid;place-items:center;font-weight:1000;font-size:21px;
+  background:linear-gradient(140deg,#b18aff,#5944ef 55%,#348bff);
+  box-shadow:0 0 25px #865cff55,inset 0 2px 3px #ffffff88;
+  transform:rotate(-4deg)
+}
+.brand-name{font-size:18px;font-weight:950;letter-spacing:1.5px}
+.brand-name span{color:#a98aff}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.status{
+  color:var(--green);font-size:11px;font-weight:800;
+  padding:9px 12px;border:1px solid #57e5bc35;border-radius:30px;
+  background:#57e5bc0b
+}
+.btn{
+  position:relative;isolation:isolate;overflow:hidden;
+  border:1px solid #ffffff18;border-radius:13px;
+  padding:11px 16px;cursor:pointer;font-weight:750;font-size:12px;
+  letter-spacing:.15px;display:inline-flex;align-items:center;
+  justify-content:center;gap:8px;text-decoration:none;
+  background:linear-gradient(180deg,#292c43,#171929);
+  box-shadow:0 5px 0 #090a12,0 8px 18px #0005,inset 0 1px 0 #ffffff18;
+  transition:transform .16s,box-shadow .16s,border-color .16s,filter .16s;
+}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(115deg,transparent 15%,#ffffff0c 45%,transparent 75%);
+  transform:translateX(-100%);transition:transform .45s
+}
+.btn:hover::before{transform:translateX(100%)}
+.btn:hover{
+  transform:translateY(-2px);border-color:#a98aff80;
+  box-shadow:0 7px 0 #090a12,0 12px 26px #6c45ff25,inset 0 1px 0 #ffffff22
+}
+.btn:active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 #090a12,inset 0 2px 5px #0005
+}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-primary{
+  background:linear-gradient(135deg,#9e70ff,#714bfa 50%,#397ff7);
+  border-color:#c0a5ff70;color:white;
+  box-shadow:0 5px 0 #342078,0 9px 25px #815aff3c,inset 0 1px 0 #ffffff70
+}
+.btn-primary:hover{box-shadow:0 7px 0 #342078,0 14px 32px #815aff60}
+.btn-pink{background:linear-gradient(135deg,#e76bd1,#a64ce8);box-shadow:0 5px 0 #5a2478,0 9px 22px #bd50f52b}
+.btn-blue{background:linear-gradient(135deg,#56b5ff,#4569ef);box-shadow:0 5px 0 #1c367c,0 9px 22px #397fff2b}
+.btn-green{background:linear-gradient(135deg,#55e7bd,#18a98f);color:#071d1b;box-shadow:0 5px 0 #126858,0 9px 22px #39e6bc20}
+.btn-danger{background:linear-gradient(135deg,#f36b91,#b93668);box-shadow:0 5px 0 #67203c}
+.btn-quiet{background:#ffffff05;box-shadow:none;border-color:var(--line)}
+.btn-small{padding:8px 11px;font-size:11px;border-radius:10px}
+.icon-btn{width:39px;height:39px;padding:0;font-size:16px}
+.app{max-width:1600px;margin:auto;padding:28px 4% 55px}
+.hero{
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+  padding:30px 32px;margin-bottom:24px;position:relative;overflow:hidden;
+  border:1px solid var(--line);border-radius:24px;
+  background:linear-gradient(115deg,#1a1731ed,#111625ed 60%,#15152a);
+  box-shadow:var(--shadow)
+}
+.hero::after{
+  content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+  right:5%;top:-180px;pointer-events:none;
+  background:#8d5dff2c;filter:blur(30px)
+}
+.eyebrow{font-size:10px;font-weight:900;letter-spacing:2.5px;color:#ae94ff;text-transform:uppercase}
+h1{font-size:clamp(25px,3vw,40px);letter-spacing:-1.5px;line-height:1.12;margin:11px 0}
+.hero p{color:var(--muted);font-size:13px;line-height:1.8;max-width:580px;margin:0}
+.hero-side{position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap}
+.stat{
+  min-width:100px;padding:15px 17px;border:1px solid var(--line);
+  border-radius:16px;background:#ffffff05
+}
+.stat strong{font-size:23px;display:block}
+.stat span{font-size:10px;color:var(--muted);display:block;margin-top:4px}
+.nav{
+  display:flex;gap:7px;flex-wrap:wrap;padding:8px;
+  border:1px solid var(--line);border-radius:18px;background:#10111f;
+  margin-bottom:24px;box-shadow:var(--shadow)
+}
+.nav-btn{
+  flex:1;min-width:100px;border:1px solid transparent;
+  background:transparent;border-radius:12px;padding:12px 13px;
+  color:#9699b2;font-size:12px;font-weight:800;cursor:pointer;
+  transition:.2s
+}
+.nav-btn:hover{color:white;background:#ffffff08}
+.nav-btn.active{
+  color:white;border-color:#a38aff42;
+  background:linear-gradient(135deg,#8058ed35,#4d86ff22);
+  box-shadow:inset 0 1px 0 #ffffff12,0 0 18px #8058ed10
+}
+.page{display:none;animation:appear .25s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:28px 0 16px}
+.section-head h2{font-size:19px;margin:0;letter-spacing:-.4px}
+.section-head p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.panel{
+  border:1px solid var(--line);border-radius:20px;padding:20px;
+  background:linear-gradient(145deg,#151727,#10121e);
+  box-shadow:var(--shadow);min-width:0
+}
+.panel-title{font-size:13px;font-weight:850;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.editor-grid{display:grid;grid-template-columns:245px minmax(0,1fr) 255px;gap:16px;align-items:start}
+.stack{display:grid;gap:14px}
+.preview-panel{padding:17px;min-width:0}
+.preview-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.preview-top strong{font-size:12px}
+.preview-top span{font-size:10px;color:var(--muted)}
+.canvas-wrap{
+  width:100%;min-height:320px;display:grid;place-items:center;
+  border:1px solid #ffffff10;border-radius:15px;padding:12px;overflow:hidden;
+  background-color:#0a0b14;
+  background-image:linear-gradient(45deg,#ffffff05 25%,transparent 25%),linear-gradient(-45deg,#ffffff05 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ffffff05 75%),linear-gradient(-45deg,transparent 75%,#ffffff05 75%);
+  background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0
+}
+canvas{display:block;max-width:100%;height:auto}
+#photoCanvas{max-height:66vh;object-fit:contain;border-radius:3px}
+.empty-state{text-align:center;padding:55px 18px;color:var(--muted);max-width:350px}
+.empty-icon{font-size:42px;margin-bottom:13px;filter:drop-shadow(0 0 15px #936aff55)}
+.empty-state h3{color:#e8e4ff;font-size:15px;margin:0 0 8px}
+.empty-state p{font-size:12px;line-height:1.7}
+.dropzone{
+  border:1px dashed #987bff60;border-radius:14px;background:#8c69ff08;
+  padding:20px 12px;text-align:center;cursor:pointer;transition:.2s
+}
+.dropzone:hover,.dropzone.dragover{border-color:#b29bff;background:#8965ff18}
+.dropzone b{display:block;font-size:12px;margin-bottom:6px}
+.dropzone span{font-size:10px;color:var(--muted)}
+.field{margin:13px 0}
+.field label{display:flex;justify-content:space-between;gap:10px;margin-bottom:9px;font-size:11px;font-weight:750;color:#c5c5dc}
+.field label output{color:#b49aff;font-weight:900}
+input[type=range]{width:100%;accent-color:#a17aff;cursor:pointer}
+input[type=color]{width:34px;height:30px;border:0;background:transparent;cursor:pointer;padding:0}
+input[type=text],input[type=number],textarea,select{
+  width:100%;background:#0b0d18;border:1px solid #ffffff17;
+  color:var(--text);padding:11px 12px;border-radius:10px;font-size:12px
+}
+textarea{resize:vertical;min-height:65px}
+select{cursor:pointer}
+input[type=file]{display:none}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px}
+.btn-row .btn{flex:1}
+.divider{height:1px;background:var(--line);margin:15px 0}
+.filter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.filter-btn{
+  min-height:66px;border:1px solid #ffffff12;border-radius:12px;
+  background:linear-gradient(145deg,#202238,#131522);cursor:pointer;
+  text-align:left;padding:11px;transition:.2s;box-shadow:0 3px 0 #090a11
+}
+.filter-btn:hover{border-color:#9c7aff88;transform:translateY(-2px)}
+.filter-btn.active{border-color:#a28aff;background:#7959df22;box-shadow:0 0 16px #9064ff18}
+.filter-btn strong{font-size:11px;display:block}
+.filter-btn span{font-size:9px;color:var(--muted);display:block;margin-top:5px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.feature-card{
+  padding:21px;border:1px solid var(--line);border-radius:18px;
+  background:linear-gradient(145deg,#181a2d,#10121d);
+  box-shadow:var(--shadow);transition:transform .2s,border-color .2s
+}
+.feature-card:hover{transform:translateY(-4px);border-color:#9b7bff66}
+.feature-icon{
+  width:46px;height:46px;display:grid;place-items:center;font-size:21px;
+  border:1px solid #a28aff30;border-radius:15px;
+  background:linear-gradient(135deg,#a07aff26,#4f95ff1a);
+  box-shadow:inset 0 1px 0 #ffffff15;margin-bottom:15px
+}
+.feature-card h3{font-size:14px;margin:0 0 8px}
+.feature-card p{font-size:11px;color:var(--muted);line-height:1.7;min-height:40px}
+.feature-card .btn{margin-top:8px}
+.mini-preview{width:100%;max-height:320px;object-fit:contain;border-radius:10px}
+.project-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.project-card{padding:12px;border:1px solid var(--line);border-radius:15px;background:#ffffff04;min-width:0}
+.project-card img{width:100%;height:150px;object-fit:contain;background:#0b0d17;border-radius:10px}
+.project-card h3{font-size:12px;overflow-wrap:anywhere}
+.project-card .btn-row{margin-top:10px}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 10px;
+  border-radius:30px;border:1px solid #9d83ff2e;
+  background:#9d83ff0c;color:#bdaaff;font-size:10px;font-weight:800
+}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);
+  opacity:0;pointer-events:none;z-index:100;padding:13px 19px;
+  background:#202239;border:1px solid #a48aff55;border-radius:13px;
+  box-shadow:0 12px 35px #0009;font-size:12px;transition:.25s
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);margin-top:45px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10px}
+.small-note{font-size:10px;color:var(--muted);line-height:1.65}
+.video-preview{width:100%;max-height:380px;background:#080910;border-radius:12px}
+#collageCanvas,#posterCanvas,#memeCanvas,#stickerCanvas{max-height:65vh}
+.light-mode{
+  --bg:#eff0fa;--panel:#fff;--panel2:#f6f5ff;--line:#d9d8ee;
+  --text:#25253d;--muted:#696d89;--shadow:0 12px 30px #34315a12,inset 0 1px 0 #ffffff;
+  background:radial-gradient(ellipse at 10% 0%,#d9ccff,transparent 35%),#eff0fa
+}
+.light-mode .topbar{background:#f5f4fbeF}
+.light-mode .panel,.light-mode .feature-card,.light-mode .hero{background:linear-gradient(145deg,#fff,#f3f2ff)}
+.light-mode .nav{background:#fff}
+.light-mode .nav-btn{color:#656785}
+.light-mode .nav-btn.active{color:#5537ad}
+.light-mode input[type=text],.light-mode input[type=number],.light-mode textarea,.light-mode select{background:#fff;color:#25253d;border-color:#d9d8ee}
+.light-mode .filter-btn{background:linear-gradient(145deg,#fff,#f0effb);color:#25253d}
+.light-mode .canvas-wrap{background-color:#dfe0eb}
+.light-mode .stat{background:#ffffffa6}
+.light-mode .empty-state h3{color:#373550}
+@media(max-width:1120px){
+  .editor-grid{grid-template-columns:220px minmax(0,1fr)}
+  .editor-grid>.right-tools{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .topbar{height:auto;min-height:67px;padding:12px 4%;flex-wrap:wrap}
+  .brand{min-width:0}.brand-name{font-size:15px}.brand-sub{font-size:9px}
+  .top-actions{margin-left:auto}.status{display:none}
+  .app{padding:18px 4% 35px}
+  .hero{padding:22px;display:block}.hero-side{margin-top:20px}
+  .stat{flex:1;min-width:75px;padding:12px}
+  .stat strong{font-size:20px}
+  .nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .nav-btn{min-width:0;padding:11px 5px;font-size:10px}
+  .editor-grid{grid-template-columns:1fr}
+  .editor-grid>.right-tools{grid-column:auto;display:grid;grid-template-columns:1fr}
+  .canvas-wrap{min-height:250px}
+  .feature-grid,.project-list{grid-template-columns:1fr}
+  .feature-card p{min-height:0}
+  .section-head{align-items:flex-start}
+  footer{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">P</div>
+    <div>
+      <div class="brand-name">PIXORA <span>STUDIO</span></div>
+      <div class="brand-sub">NEON CREATIVE UNIVERSE</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="status">● CREATIVE MODE</span>
+    <button class="btn btn-quiet icon-btn" id="themeBtn" title="Сменить тему">☼</button>
+    <button class="btn btn-primary" id="headerUpload">＋ Добавить фото</button>
+    <input type="file" id="mainUpload" accept="image/*">
+  </div>
+</header>
+
+<main class="app">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">✦ ТВОЯ ТВОРЧЕСКАЯ СТУДИЯ</div>
+      <h1>Создавай. Изменяй. <span style="color:#a98aff">Впечатляй.</span></h1>
+      <p>Фото, мемы, постеры, коллажи и видео — в одной студии с неоновым интерфейсом и удобными инструментами.</p>
+    </div>
+    <div class="hero-side">
+      <div class="stat"><strong id="projectCount">0</strong><span>Проектов</span></div>
+      <div class="stat"><strong id="downloadCount">0</strong><span>Экспортов</span></div>
+      <div class="stat"><strong id="levelCount">01</strong><span>Уровень</span></div>
+    </div>
+  </section>
+
+  <nav class="nav" id="mainNav">
+    <button class="nav-btn active" data-page="home">⌂ Главная</button>
+    <button class="nav-btn" data-page="editor">◈ Фото</button>
+    <button class="nav-btn" data-page="memes">▣ Мемы</button>
+    <button class="nav-btn" data-page="posters">✦ Постеры</button>
+    <button class="nav-btn" data-page="collage">▦ Коллажи</button>
+    <button class="nav-btn" data-page="stickers">✧ Стикеры</button>
+    <button class="nav-btn" data-page="reels">▶ Reels</button>
+    <button class="nav-btn" data-page="projects">▤ Проекты</button>
+    <button class="nav-btn" data-page="settings">⚙ Настройки</button>
+  </nav>
+
+  <section class="page active" id="page-home">
+    <div class="section-head">
+      <div><h2>Творческая лаборатория</h2><p>Выбирай инструмент и начинай создавать.</p></div>
+      <span class="badge">✦ PIXORA 17.0</span>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon">◈</div><h3>Фото-редактор</h3>
+        <p>Фильтры, свет, цветокоррекция, поворот и текст поверх изображения.</p>
+        <button class="btn btn-primary" data-go="editor">Открыть редактор ↗</button>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">▣</div><h3>Meme Factory</h3>
+        <p>Создавай мемы с верхней и нижней надписью, выбирай цвет и размер.</p>
+        <button class="btn btn-pink" data-go="memes">Создать мем ↗</button>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">✦</div><h3>Poster Studio</h3>
+        <p>Космические постеры с градиентами, заголовками и декоративными эффектами.</p>
+        <button class="btn btn-blue" data-go="posters">Создать постер ↗</button>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">▦</div><h3>Collage Lab</h3>
+        <p>Объединяй несколько фотографий в одну композицию.</p>
+        <button class="btn" data-go="collage">Собрать коллаж ↗</button>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">✧</div><h3>Sticker Lab</h3>
+        <p>Добавляй надписи и символы на собственный фон.</p>
+        <button class="btn" data-go="stickers">Открыть стикеры ↗</button>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">▶</div><h3>Reels Studio</h3>
+        <p>Просматривай видео, настраивай текст и фильтр, записывай результат.</p>
+        <button class="btn btn-green" data-go="reels">Открыть Reels ↗</button>
+      </article>
+    </div>
+    <div class="section-head"><div><h2>Последние проекты</h2><p>Работы, сохранённые в этом браузере.</p></div><button class="btn btn-quiet" data-go="projects">Все проекты →</button></div>
+    <div class="project-list" id="homeProjects"><div class="panel small-note">Пока нет сохранённых проектов. Создай первую работу и сохрани её!</div></div>
+  </section>
+
+  <section class="page" id="page-editor">
+    <div class="section-head"><div><h2>Photo Editor PRO</h2><p>Редактируй изображение и скачивай результат в PNG или JPG.</p></div><span class="badge">CANVAS ENGINE</span></div>
+    <div class="editor-grid">
+      <div class="stack">
+        <div class="panel">
+          <div class="panel-title">01 / Импорт изображения</div>
+          <label class="dropzone" for="photoFile"><b>＋ Загрузить фото</b><span>Нажми или перетащи изображение</span></label>
+          <input type="file" id="photoFile" accept="image/*">
+          <div class="divider"></div>
+          <div class="panel-title">Фильтры</div>
+          <div class="filter-grid" id="filterGrid">
+            <button class="filter-btn active" data-filter="normal"><strong>Original</strong><span>Без фильтра</span></button>
+            <button class="filter-btn" data-filter="vivid"><strong>Vivid</strong><span>Яркие цвета</span></button>
+            <button class="filter-btn" data-filter="mono"><strong>Mono</strong><span>Чёрно-белый</span></button>
+            <button class="filter-btn" data-filter="sepia"><strong>Vintage</strong><span>Тёплый ретро</span></button>
+            <button class="filter-btn" data-filter="cool"><strong>Ice Blue</strong><span>Холодный тон</span></button>
+            <button class="filter-btn" data-filter="dream"><strong>Dream</strong><span>Мягкий свет</span></button>
+            <button class="filter-btn" data-filter="invert"><strong>Invert</strong><span>Негатив</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel preview-panel">
+        <div class="preview-top"><strong>LIVE PREVIEW</strong><span id="photoStatus">Ожидание изображения</span></div>
+        <div class="canvas-wrap" id="photoDrop">
+          <div class="empty-state" id="photoEmpty">
+            <div class="empty-icon">✧</div><h3>Твой холст ждёт тебя</h3>
+            <p>Загрузи фотографию, чтобы начать редактирование. Результат появится здесь.</p>
+            <button class="btn btn-primary" id="emptyUpload">Выбрать изображение</button>
+          </div>
+          <canvas id="photoCanvas" width="900" height="600" hidden></canvas>
+        </div>
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn btn-quiet" id="undoPhoto">↶ Отменить</button>
+          <button class="btn btn-quiet" id="redoPhoto">↷ Повторить</button>
+          <button class="btn btn-quiet" id="comparePhoto">◐ Оригинал</button>
+          <button class="btn btn-quiet" id="rotatePhoto">↻ Повернуть</button>
+        </div>
+      </div>
+
+      <div class="stack right-tools">
+        <div class="panel">
+          <div class="panel-title">02 / Коррекция</div>
+          <div class="field"><label>Яркость <output id="brightOut">100%</output></label><input id="brightness" type="range" min="30" max="180" value="100"></div>
+          <div class="field"><label>Контраст <output id="contrastOut">100%</output></label><input id="contrast" type="range" min="30" max="180" value="100"></div>
+          <div class="field"><label>Насыщенность <output id="saturateOut">100%</output></label><input id="saturate" type="range" min="0" max="200" value="100"></div>
+          <div class="field"><label>Размытие <output id="blurOut">0px</output></label><input id="blur" type="range" min="0" max="8" value="0"></div>
+          <div class="divider"></div>
+          <div class="panel-title">03 / Текст на фото</div>
+          <div class="field"><label>Надпись</label><input type="text" id="photoText" placeholder="Твой текст..."></div>
+          <div class="field"><label>Размер <output id="textSizeOut">42px</output></label><input type="range" id="textSize" min="14" max="100" value="42"></div>
+          <div class="field"><label>Цвет текста</label><input type="color" id="textColor" value="#ffffff"></div>
+          <div class="field"><label>Положение текста</label><select id="textPosition"><option value="bottom">Снизу</option><option value="top">Сверху</option><option value="center">По центру</option></select></div>
+          <div class="divider"></div>
+          <div class="btn-row"><button class="btn btn-quiet" id="resetPhoto">Сбросить</button><button class="btn btn-primary" id="downloadPhoto">↓ Скачать PNG</button></div>
+          <button class="btn btn-green" id="savePhotoProject" style="width:100%;margin-top:9px">▤ Сохранить проект</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-memes">
+    <div class="section-head"><div><h2>Meme Factory</h2><p>Загрузи фото, добавь подписи и создай мем.</p></div><span class="badge">MEME CREATOR</span></div>
+    <div class="editor-grid" style="grid-template-columns:260px minmax(0,1fr)">
+      <div class="panel">
+        <div class="panel-title">Настройки мема</div>
+        <label class="dropzone" for="memeFile"><b>＋ Фото для мема</b><span>PNG, JPG, WEBP</span></label><input type="file" id="memeFile" accept="image/*">
+        <div class="field"><label>Верхний текст</label><textarea id="memeTop" placeholder="КОГДА НАЧАЛ ПРОЕКТ..."></textarea></div>
+        <div class="field"><label>Нижний текст</label><textarea id="memeBottom" placeholder="...И ЗАБЫЛ СОХРАНИТЬ"></textarea></div>
+        <div class="field"><label>Размер текста <output id="memeSizeOut">38px</output></label><input type="range" id="memeSize" min="18" max="72" value="38"></div>
+        <div class="field"><label>Цвет текста</label><input type="color" id="memeColor" value="#ffffff"></div>
+        <div class="btn-row"><button class="btn btn-quiet" id="memeReset">Очистить текст</button><button class="btn btn-primary" id="memeDownload">↓ Скачать PNG</button></div>
+      </div>
+      <div class="panel preview-panel">
+        <div class="preview-top"><strong>MEME PREVIEW</strong><span>Обновляется автоматически</span></div>
+        <div class="canvas-wrap"><div class="empty-state" id="memeEmpty"><div class="empty-icon">▣</div><h3>Сначала загрузи фото</h3><p>Затем напиши верхнюю и нижнюю подписи.</p></div><canvas id="memeCanvas" width="900" height="600" hidden></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-posters">
+    <div class="section-head"><div><h2>Poster Studio</h2><p>Создавай обложки и постеры с эффектным оформлением.</p></div><span class="badge">DESIGN LAB</span></div>
+    <div class="editor-grid" style="grid-template-columns:260px minmax(0,1fr)">
+      <div class="panel">
+        <div class="panel-title">Дизайн постера</div>
+        <div class="field"><label>Заголовок</label><input type="text" id="posterTitle" value="CREATE YOUR FUTURE"></div>
+        <div class="field"><label>Подзаголовок</label><input type="text" id="posterSub" value="PIXORA CREATIVE STUDIO"></div>
+        <div class="field"><label>Стиль</label><select id="posterStyle"><option value="cosmic">Cosmic Purple</option><option value="cyber">Cyber Blue</option><option value="ice">Ice Crystal</option><option value="sunset">Neon Sunset</option></select></div>
+        <div class="field"><label>Размер заголовка <output id="posterSizeOut">54px</output></label><input type="range" id="posterSize" min="25" max="90" value="54"></div>
+        <label class="dropzone" for="posterFile"><b>＋ Фото на постер</b><span>Необязательно</span></label><input type="file" id="posterFile" accept="image/*">
+        <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" id="posterDownload">↓ Скачать PNG</button><button class="btn btn-quiet" id="posterSave">▤ Сохранить</button></div>
+      </div>
+      <div class="panel preview-panel">
+        <div class="preview-top"><strong>POSTER PREVIEW</strong><span>Вертикальный формат</span></div>
+        <div class="canvas-wrap"><canvas id="posterCanvas" width="720" height="900"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-collage">
+    <div class="section-head"><div><h2>Collage Lab</h2><p>Выбери несколько изображений и собери композицию.</p></div><span class="badge">MULTI PHOTO</span></div>
+    <div class="editor-grid" style="grid-template-columns:260px minmax(0,1fr)">
+      <div class="panel">
+        <div class="panel-title">Параметры коллажа</div>
+        <label class="dropzone" for="collageFiles"><b>＋ Выбрать фотографии</b><span>Можно выбрать сразу несколько</span></label><input type="file" id="collageFiles" accept="image/*" multiple>
+        <div class="field"><label>Макет</label><select id="collageLayout"><option value="grid">Сетка</option><option value="strip">Горизонтальная лента</option><option value="hero">Большое фото + остальные</option></select></div>
+        <div class="field"><label>Расстояние <output id="gapOut">12px</output></label><input type="range" id="collageGap" min="0" max="35" value="12"></div>
+        <div class="field"><label>Цвет фона</label><input type="color" id="collageBg" value="#101221"></div>
+        <p class="small-note" id="collageCount">Выбрано изображений: 0</p>
+        <button class="btn btn-primary" id="collageDownload" style="width:100%">↓ Скачать коллаж</button>
+      </div>
+      <div class="panel preview-panel"><div class="preview-top"><strong>COLLAGE PREVIEW</strong><span>Формат 1200 × 800</span></div><div class="canvas-wrap"><canvas id="collageCanvas" width="1200" height="800"></canvas></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-stickers">
+    <div class="section-head"><div><h2>Sticker Lab</h2><p>Собирай простые композиции из текста и символов.</p></div><span class="badge">CREATIVE CANVAS</span></div>
+    <div class="editor-grid" style="grid-template-columns:260px minmax(0,1fr)">
+      <div class="panel">
+        <div class="panel-title">Элементы холста</div>
+        <label class="dropzone" for="stickerBgFile"><b>＋ Загрузить фон</b><span>Или используй градиентный фон</span></label><input type="file" id="stickerBgFile" accept="image/*">
+        <div class="field"><label>Надпись или символ</label><input id="stickerText" type="text" value="✦ PIXORA ✦"></div>
+        <div class="field"><label>Цвет</label><input type="color" id="stickerColor" value="#a98aff"></div>
+        <div class="field"><label>Размер <output id="stickerSizeOut">70px</output></label><input type="range" id="stickerSize" min="20" max="150" value="70"></div>
+        <div class="field"><label>Расположение</label><select id="stickerPosition"><option value="center">По центру</option><option value="top">Сверху</option><option value="bottom">Снизу</option></select></div>
+        <div class="btn-row"><button class="btn btn-primary" id="addSticker">＋ Добавить</button><button class="btn btn-quiet" id="clearStickers">Сбросить</button></div>
+        <button class="btn btn-green" id="stickerDownload" style="width:100%;margin-top:9px">↓ Скачать PNG</button>
+      </div>
+      <div class="panel preview-panel"><div class="preview-top"><strong>STICKER PREVIEW</strong><span>Холст 900 × 600</span></div><div class="canvas-wrap"><canvas id="stickerCanvas" width="900" height="600"></canvas></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-reels">
+    <div class="section-head"><div><h2>Reels Studio</h2><p>Просматривай один видеоклип, добавляй текст и записывай результат.</p></div><span class="badge">VIDEO LAB</span></div>
+    <div class="editor-grid" style="grid-template-columns:260px minmax(0,1fr)">
+      <div class="panel">
+        <div class="panel-title">Настройки видео</div>
+        <label class="dropzone" for="videoFile"><b>＋ Выбрать видео</b><span>MP4, WebM и другие поддерживаемые форматы</span></label><input type="file" id="videoFile" accept="video/*">
+        <div class="field"><label>Текст поверх видео</label><input id="videoText" type="text" placeholder="Твой заголовок"></div>
+        <div class="field"><label>Цвет текста</label><input type="color" id="videoTextColor" value="#ffffff"></div>
+        <div class="field"><label>Фильтр</label><select id="videoFilter"><option value="none">Оригинал</option><option value="contrast(1.2) saturate(1.3)">Яркий</option><option value="grayscale(1)">Чёрно-белый</option><option value="sepia(.65)">Винтаж</option><option value="hue-rotate(35deg) saturate(1.4)">Неон</option></select></div>
+        <div class="field"><label>Начало клипа (сек.)</label><input id="videoStart" type="number" min="0" value="0"></div>
+        <div class="field"><label>Конец клипа (сек.)</label><input id="videoEnd" type="number" min="1" value="10"></div>
+        <div class="btn-row"><button class="btn btn-quiet" id="videoPlay">▶ Просмотр</button><button class="btn btn-primary" id="videoExport">● Записать WebM</button></div>
+        <p class="small-note" style="margin-top:12px">Экспорт зависит от поддержки MediaRecorder в браузере. Сохраняется выбранный клип, а не объединение нескольких видео.</p>
+      </div>
+      <div class="panel preview-panel">
+        <div class="preview-top"><strong>REELS PREVIEW</strong><span id="videoStatus">Ожидание видео</span></div>
+        <div class="canvas-wrap" style="min-height:300px"><video id="videoSource" class="video-preview" controls playsinline hidden></video><div class="empty-state" id="videoEmpty"><div class="empty-icon">▶</div><h3>Добавь видеоклип</h3><p>После загрузки здесь появится видеоплеер.</p></div></div>
+        <canvas id="videoCanvas" width="720" height="1280" hidden></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-projects">
+    <div class="section-head"><div><h2>Мои проекты</h2><p>Сохраняй работы локально и возвращайся к ним позже.</p></div><button class="btn btn-quiet" id="exportArchive">⇩ Экспорт списка</button></div>
+    <div class="panel">
+      <div class="panel-title">Локальная галерея <span class="badge">В ЭТОМ БРАУЗЕРЕ</span></div>
+      <div class="project-list" id="allProjects"><div class="small-note">Пока нет сохранённых проектов.</div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-settings">
+    <div class="section-head"><div><h2>Настройки студии</h2><p>Настрой интерфейс под себя.</p></div><span class="badge">PREFERENCES</span></div>
+    <div class="feature-grid">
+      <div class="panel">
+        <div class="panel-title">Внешний вид</div>
+        <p class="small-note">Переключи тёмную и светлую тему.</p>
+        <button class="btn btn-primary" id="settingsTheme">☼ Переключить тему</button>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Данные</div>
+        <p class="small-note">Проекты хранятся в localStorage этого браузера. Не очищай данные сайта, если хочешь сохранить галерею.</p>
+        <button class="btn btn-danger" id="clearProjects">Удалить все проекты</button>
+      </div>
+      <div class="panel">
+        <div class="panel-title">О PIXORA STUDIO</div>
+        <p class="small-note">Версия 17.0 · Один HTML-файл · Фотообработка выполняется локально. Внешний AI-сервис не подключён.</p>
+        <button class="btn btn-quiet" id="aboutBtn">Проверить состояние</button>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>PIXORA STUDIO 17.0 · NEON CREATIVE UNIVERSE</span><span>Твоя идея — твой дизайн.</span></footer>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const qs = (s, root=document) => root.querySelector(s);
+const qsa = (s, root=document) => [...root.querySelectorAll(s)];
+let toastTimer;
+function toast(message){
+  const el=$("toast");el.textContent=message;el.classList.add("show");
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+}
+function go(page){
+  if(!$("page-"+page))return;
+  qsa(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+  qsa(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(page==="posters")drawPoster();
+  if(page==="collage")drawCollage();
+  if(page==="stickers")drawStickers();
+  if(page==="projects"){renderProjects();updateStats();}
+}
+qsa(".nav-btn").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+qsa("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("headerUpload").onclick=()=>$("mainUpload").click();
+$("emptyUpload").onclick=()=>$("photoFile").click();
+$("mainUpload").addEventListener("change",e=>{if(e.target.files[0])loadPhotoFile(e.target.files[0]);e.target.value=""});
+$("themeBtn").onclick=toggleTheme;
+$("settingsTheme").onclick=toggleTheme;
+function toggleTheme(){
+  document.body.classList.toggle("light-mode");
+  localStorage.setItem("pixoraTheme",document.body.classList.contains("light-mode")?"light":"dark");
+}
+if(localStorage.getItem("pixoraTheme")==="light")document.body.classList.add("light-mode");
+
+let exportsCount=Number(localStorage.getItem("pixoraExports")||0);
+let projects=loadProjects();
+function loadProjects(){try{return JSON.parse(localStorage.getItem("pixoraProjects")||"[]")}catch(e){return []}}
+function storeProjects(){
+  try{localStorage.setItem("pixoraProjects",JSON.stringify(projects))}
+  catch(e){toast("Не хватило места для сохранения. Удали старые проекты.");}
+  updateStats();renderProjects();
+}
+function updateStats(){
+  $("projectCount").textContent=projects.length;
+  $("downloadCount").textContent=exportsCount;
+  $("levelCount").textContent=String(Math.min(99,1+Math.floor(exportsCount/5)+Math.floor(projects.length/3))).padStart(2,"0");
+}
+function trackExport(){exportsCount++;localStorage.setItem("pixoraExports",exportsCount);updateStats()}
+function saveProject(name,canvas){
+  if(!canvas)return toast("Сначала создай изображение.");
+  try{
+    const data=canvas.toDataURL("image/png");
+    projects.unshift({id:Date.now()+Math.random(),name:name||"PIXORA проект",data,created:new Date().toLocaleString("ru-RU")});
+    projects=projects.slice(0,15);storeProjects();toast("Проект сохранён!");
+  }catch(e){toast("Не удалось сохранить это изображение.");}
+}
+function renderProjects(){
+  const containers=[$("allProjects"),$("homeProjects")];
+  containers.forEach((container,idx)=>{
+    if(!projects.length){
+      container.innerHTML='<div class="small-note">Пока нет сохранённых проектов. Создай работу и нажми «Сохранить проект».</div>';return;
+    }
+    const list=idx?projects.slice(0,3):projects;
+    container.innerHTML=list.map(p=>`
+      <article class="project-card">
+        <img src="${p.data}" alt="Предпросмотр проекта">
+        <h3>${escapeHtml(p.name)}</h3>
+        <div class="small-note">${escapeHtml(p.created||"")}</div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-small" data-open-project="${p.id}">Скачать</button>
+          <button class="btn btn-danger btn-small" data-delete-project="${p.id}">Удалить</button>
+        </div>
+      </article>`).join("");
+  });
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.addEventListener("click",e=>{
+  const open=e.target.closest("[data-open-project]");
+  const del=e.target.closest("[data-delete-project]");
+  if(open){
+    const p=projects.find(x=>String(x.id)===open.dataset.openProject);
+    if(p){const a=document.createElement("a");a.href=p.data;a.download=(p.name||"pixora-project")+".png";a.click();trackExport();}
+  }
+  if(del){projects=projects.filter(x=>String(x.id)!==del.dataset.deleteProject);storeProjects();toast("Проект удалён.");}
+});
+$("exportArchive").onclick=()=>{
+  const blob=new Blob([JSON.stringify(projects.map(({id,name,created})=>({id,name,created})),null,2)],{type:"application/json"});
+  downloadBlob(blob,"pixora-project-list.json");toast("Список проектов экспортирован.");
+};
+$("clearProjects").onclick=()=>{
+  if(confirm("Удалить все сохранённые проекты?")){
+    projects=[];storeProjects();toast("Галерея очищена.");
+  }
+};
+$("aboutBtn").onclick=()=>toast("PIXORA работает. Все инструменты находятся в этом HTML.");
+function downloadBlob(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function downloadCanvas(canvas,name,type="image/png",quality=.92){
+  if(!canvas)return toast("Нет изображения для экспорта.");
+  canvas.toBlob(blob=>{
+    if(!blob)return toast("Не удалось экспортировать изображение.");
+    downloadBlob(blob,name);trackExport();toast("Изображение готово!");
+  },type,quality);
+}
+updateStats();renderProjects();
+
+/* PHOTO EDITOR */
+const photo=$("photoCanvas"),px=photo.getContext("2d");
+let sourcePhoto=null,photoFilter="normal",photoRotation=0,showOriginal=false;
+let photoHistory=[],photoFuture=[];
+function snapshotPhoto(){
+  if(!sourcePhoto)return;
+  try{
+    photoHistory.push(photo.toDataURL("image/png"));
+    if(photoHistory.length>12)photoHistory.shift();
+    photoFuture=[];
+  }catch(e){}
+}
+function setCanvasImage(canvas,src,done){
+  const img=new Image();img.onload=()=>{done(img)};img.onerror=()=>toast("Не удалось открыть изображение.");img.src=src;
+}
+function loadPhotoFile(file){
+  if(!file.type.startsWith("image/"))return toast("Выбери файл изображения.");
+  const reader=new FileReader();
+  reader.onload=()=>setCanvasImage(photo,reader.result,img=>{
+    sourcePhoto=img;photoRotation=0;photoFilter="normal";photoHistory=[];photoFuture=[];
+    photo.width=img.naturalWidth;photo.height=img.naturalHeight;
+    photo.hidden=false;$("photoEmpty").hidden=true;$("photoStatus").textContent=img.naturalWidth+" × "+img.naturalHeight;
+    qsa(".filter-btn").forEach(b=>b.classList.toggle("active",b.dataset.filter==="normal"));
+    redrawPhoto();toast("Фото загружено.");
+  });
+  reader.readAsDataURL(file);
+}
+$("photoFile").addEventListener("change",e=>{if(e.target.files[0])loadPhotoFile(e.target.files[0]);e.target.value=""});
+const photoDrop=$("photoDrop");
+photoDrop.addEventListener("dragover",e=>{e.preventDefault();photoDrop.classList.add("dragover")});
+photoDrop.addEventListener("dragleave",()=>photoDrop.classList.remove("dragover"));
+photoDrop.addEventListener("drop",e=>{e.preventDefault();photoDrop.classList.remove("dragover");if(e.dataTransfer.files[0])loadPhotoFile(e.dataTransfer.files[0])});
+const photoControls=["brightness","contrast","saturate","blur","textSize"];
+photoControls.forEach(id=>$(id).addEventListener("input",()=>{
+  const out=$(id+"Out");
+  if(out)out.textContent=$(id).value+(id==="blur"?"px":"px");
+  if(id==="brightness")$("brightOut").textContent=$(id).value+"%";
+  if(id==="contrast")$("contrastOut").textContent=$(id).value+"%";
+  if(id==="saturate")$("saturateOut").textContent=$(id).value+"%";
+  if(id==="blur")$("blurOut").textContent=$(id).value+"px";
+  if(id==="textSize")$("textSizeOut").textContent=$(id).value+"px";
+  redrawPhoto();
+}));
+qsa(".filter-btn").forEach(b=>b.addEventListener("click",()=>{
+  photoFilter=b.dataset.filter;
+  qsa(".filter-btn").forEach(x=>x.classList.toggle("active",x===b));redrawPhoto();
+}));
+["photoText","textColor","textPosition"].forEach(id=>$(id).addEventListener("input",redrawPhoto));
+function filterCSS(){
+  const base=`brightness(${$("brightness").value}%) contrast(${$("contrast").value}%) saturate(${$("saturate").value}%) blur(${$("blur").value}px)`;
+  const f={normal:"",vivid:"saturate(1.35) contrast(1.08)",mono:"grayscale(1)",sepia:"sepia(.72)",cool:"hue-rotate(15deg) saturate(1.15)",dream:"brightness(1.08) saturate(.82)",invert:"invert(1)"}[photoFilter]||"";
+  return showOriginal?"none":base+" "+f;
+}
+function redrawPhoto(){
+  if(!sourcePhoto)return;
+  const w=sourcePhoto.naturalWidth,h=sourcePhoto.naturalHeight;
+  const rotated=Math.abs(photoRotation%180)===90;
+  photo.width=rotated?h:w;photo.height=rotated?w:h;
+  px.save();px.clearRect(0,0,photo.width,photo.height);
+  px.translate(photo.width/2,photo.height/2);px.rotate(photoRotation*Math.PI/180);
+  px.filter=filterCSS();
+  px.drawImage(sourcePhoto,-w/2,-h/2,w,h);px.filter="none";px.restore();
+  const txt=$("photoText").value.trim();
+  if(txt&&!showOriginal){
+    const size=Number($("textSize").value);
+    px.save();px.font=`900 ${size}px Arial`;px.textAlign="center";px.textBaseline="middle";
+    px.lineWidth=Math.max(2,size*.075);px.strokeStyle="#000";px.fillStyle=$("textColor").value;
+    const lines=wrapCanvasText(px,txt,photo.width*.88);
+    const lineH=size*1.16;
+    let y=$("textPosition").value==="top"?lineH:$("textPosition").value==="center"?(photo.height-lines.length*lineH)/2+lineH/2:photo.height-lines.length*lineH+lineH*.35;
+    lines.forEach(line=>{px.strokeText(line,photo.width/2,y);px.fillText(line,photo.width/2,y);y+=lineH});
+    px.restore();
+  }
+}
+function wrapCanvasText(ctx,text,maxWidth){
+  const words=text.split(/\s+/),lines=[];let line="";
+  for(const word of words){const test=line?line+" "+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}
+  if(line)lines.push(line);return lines;
+}
+$("rotatePhoto").onclick=()=>{if(!sourcePhoto)return toast("Сначала загрузи фото.");snapshotPhoto();photoRotation=(photoRotation+90)%360;redrawPhoto()};
+$("comparePhoto").onclick=()=>{
+  if(!sourcePhoto)return toast("Сначала загрузи фото.");
+  showOriginal=!showOriginal;$("comparePhoto").textContent=showOriginal?"◐ Вернуть эффект":"◐ Оригинал";redrawPhoto();
+};
+$("resetPhoto").onclick=()=>{
+  if(!sourcePhoto)return toast("Сначала загрузи фото.");
+  $("brightness").value=100;$("contrast").value=100;$("saturate").value=100;$("blur").value=0;
+  $("photoText").value="";photoFilter="normal";photoRotation=0;showOriginal=false;
+  $("comparePhoto").textContent="◐ Оригинал";
+  qsa(".filter-btn").forEach(b=>b.classList.toggle("active",b.dataset.filter==="normal"));
+  redrawPhoto();toast("Настройки сброшены.");
+};
+$("undoPhoto").onclick=()=>{
+  if(!photoHistory.length)return toast("Нет предыдущего состояния.");
+  photoFuture.push(photo.toDataURL());const data=photoHistory.pop();
+  setCanvasImage(photo,data,img=>{photo.width=img.width;photo.height=img.height;px.drawImage(img,0,0)});
+};
+$("redoPhoto").onclick=()=>{
+  if(!photoFuture.length)return toast("Нет действия для повтора.");
+  photoHistory.push(photo.toDataURL());const data=photoFuture.pop();
+  setCanvasImage(photo,data,img=>{photo.width=img.width;photo.height=img.height;px.drawImage(img,0,0)});
+};
+$("downloadPhoto").onclick=()=>{if(!sourcePhoto)return toast("Сначала загрузи фото.");showOriginal=false;redrawPhoto();downloadCanvas(photo,"pixora-photo.png")};
+$("savePhotoProject").onclick=()=>{if(!sourcePhoto)return toast("Сначала загрузи фото.");showOriginal=false;redrawPhoto();saveProject("Фото — PIXORA",photo)};
+
+/* MEME FACTORY */
+const meme=$("memeCanvas"),mx=meme.getContext("2d");
+let memeImg=null;
+$("memeFile").addEventListener("change",e=>{if(e.target.files[0])loadImageFile(e.target.files[0],img=>{memeImg=img;meme.hidden=false;$("memeEmpty").hidden=true;drawMeme()});e.target.value=""});
+function loadImageFile(file,done){
+  if(!file.type.startsWith("image/"))return toast("Выбери файл изображения.");
+  const r=new FileReader();r.onload=()=>setCanvasImage(meme,r.result,done);r.readAsDataURL(file);
+}
+["memeTop","memeBottom","memeColor","memeSize"].forEach(id=>$(id).addEventListener("input",()=>{
+  $("memeSizeOut").textContent=$("memeSize").value+"px";drawMeme();
+}));
+function drawMeme(){
+  if(!memeImg)return;
+  meme.width=memeImg.naturalWidth;meme.height=memeImg.naturalHeight;
+  mx.clearRect(0,0,meme.width,meme.height);mx.drawImage(memeImg,0,0,meme.width,meme.height);
+  const size=Number($("memeSize").value),color=$("memeColor").value;
+  mx.font=`900 ${size}px Impact, Arial Black, sans-serif`;mx.textAlign="center";mx.textBaseline="top";
+  mx.lineJoin="round";mx.lineWidth=Math.max(3,size*.12);mx.strokeStyle="#000";mx.fillStyle=color;
+  function drawLines(text,top){
+    if(!text.trim())return;
+    const lines=wrapCanvasText(mx,text.toUpperCase(),meme.width*.9);
+    let y=top?meme.height*.035:meme.height-size*1.2*lines.length-meme.height*.035;
+    lines.forEach(line=>{mx.strokeText(line,meme.width/2,y);mx.fillText(line,meme.width/2,y);y+=size*1.2});
+  }
+  drawLines($("memeTop").value,true);drawLines($("memeBottom").value,false);
+}
+$("memeSize").addEventListener("input",()=>{$("memeSizeOut").textContent=$("memeSize").value+"px"});
+$("memeReset").onclick=()=>{$("memeTop").value="";$("memeBottom").value="";drawMeme();toast("Подписи очищены.")};
+$("memeDownload").onclick=()=>{if(!memeImg)return toast("Загрузи фото для мема.");drawMeme();downloadCanvas(meme,"pixora-meme.png")};
+
+/* POSTER STUDIO */
+const poster=$("posterCanvas"),ox=poster.getContext("2d");
+let posterImg=null;
+$("posterFile").addEventListener("change",e=>{if(e.target.files[0])loadImageFile(e.target.files[0],img=>{posterImg=img;drawPoster()});e.target.value=""});
+["posterTitle","posterSub","posterStyle","posterSize"].forEach(id=>$(id).addEventListener("input",()=>{
+  $("posterSizeOut").textContent=$("posterSize").value+"px";drawPoster();
+}));
+function drawPoster(){
+  const w=poster.width,h=poster.height;ox.clearRect(0,0,w,h);
+  const styles={
+    cosmic:["#090a24","#642ee8","#ec62d7"],
+    cyber:["#041c32","#087dc0","#53f2ff"],
+    ice:["#061b35","#367bd9","#c0f5ff"],
+    sunset:["#32104b","#d743b8","#ff9d54"]
+  }[$("posterStyle").value];
+  const g=ox.createLinearGradient(0,0,w,h);g.addColorStop(0,styles[0]);g.addColorStop(.55,styles[1]);g.addColorStop(1,styles[2]);
+  ox.fillStyle=g;ox.fillRect(0,0,w,h);
+  ox.save();
+  for(let i=0;i<35;i++){
+    const x=(i*137)%w,y=(i*211)%h,r=(i%3)+1;
+    ox.fillStyle="#ffffff"+(["22","44","77"][i%3]);ox.beginPath();ox.arc(x,y,r,0,Math.PI*2);ox.fill();
+  }
+  ox.strokeStyle="#ffffff20";ox.lineWidth=2;
+  for(let i=0;i<6;i++){ox.beginPath();ox.arc(w*.5,h*.38,100+i*40,0,Math.PI*2);ox.stroke()}
+  if(posterImg){
+    const maxW=w*.78,maxH=h*.42,s=Math.min(maxW/posterImg.width,maxH/posterImg.height);
+    const iw=posterImg.width*s,ih=posterImg.height*s;
+    ox.save();ox.shadowColor=styles[2];ox.shadowBlur=35;
+    ox.drawImage(posterImg,(w-iw)/2,h*.18,iw,ih);ox.restore();
+  }else{
+    ox.save();ox.shadowColor=styles[2];ox.shadowBlur=40;
+    const rg=ox.createRadialGradient(w*.5,h*.38,10,w*.5,h*.38,180);
+    rg.addColorStop(0,"#ffffffdd");rg.addColorStop(.25,styles[2]);rg.addColorStop(1,styles[1]+"00");
+    ox.fillStyle=rg;ox.beginPath();ox.arc(w*.5,h*.38,180,0,Math.PI*2);ox.fill();ox.restore();
+  }
+  ox.textAlign="center";ox.fillStyle="#ffffff";ox.shadowColor="#0009";ox.shadowBlur=12;
+  ox.font=`900 ${$("posterSize").value}px Arial`;const title=$("posterTitle").value||"PIXORA";
+  const titleLines=wrapCanvasText(ox,title,w*.84);
+  let ty=h*.70;
+  titleLines.slice(0,3).forEach(line=>{ox.fillText(line,w/2,ty);ty+=Number($("posterSize").value)*1.15});
+  ox.shadowBlur=0;ox.fillStyle="#ffffffbb";ox.font="600 23px Arial";
+  const sub=$("posterSub").value;wrapCanvasText(ox,sub,w*.82).slice(0,2).forEach((line,i)=>ox.fillText(line,w/2,ty+18+i*30));
+  ox.fillStyle="#ffffff8a";ox.font="700 13px Arial";ox.fillText("PIXORA STUDIO  /  CREATIVE UNIVERSE",w/2,h-35);
+  ox.restore();
+}
+$("posterDownload").onclick=()=>{drawPoster();downloadCanvas(poster,"pixora-poster.png")};
+$("posterSave").onclick=()=>{drawPoster();saveProject("Постер — PIXORA",poster)};
+
+/* COLLAGE LAB */
+const collage=$("collageCanvas"),cx=collage.getContext("2d");
+let collageImgs=[];
+$("collageFiles").addEventListener("change",e=>{
+  const files=[...e.target.files].filter(f=>f.type.startsWith("image/")).slice(0,12);
+  collageImgs=[];let done=0;
+  if(!files.length){toast("Выбери изображения.");return}
+  files.forEach(file=>loadImageFile(file,img=>{
+    collageImgs.push(img);done++;
+    if(done===files.length){$("collageCount").textContent="Выбрано изображений: "+collageImgs.length;drawCollage();toast("Фото добавлены в коллаж.")}
+  }));
+  e.target.value="";
+});
+["collageLayout","collageGap","collageBg"].forEach(id=>$(id).addEventListener("input",()=>{
+  $("gapOut").textContent=$("collageGap").value+"px";drawCollage();
+}));
+function drawCover(ctx,img,x,y,w,h){
+  const iw=img.naturalWidth||img.videoWidth||img.width;
+  const ih=img.naturalHeight||img.videoHeight||img.height;
+  if(!iw||!ih)return;
+  const scale=Math.max(w/iw,h/ih),sw=w/scale,sh=h/scale;
+  ctx.drawImage(img,(iw-sw)/2,(ih-sh)/2,sw,sh,x,y,w,h);
+}
+function drawCollage(){
+  const w=collage.width,h=collage.height,gap=Number($("collageGap").value);
+  cx.fillStyle=$("collageBg").value;cx.fillRect(0,0,w,h);
+  if(!collageImgs.length){
+    cx.fillStyle="#9996b5";cx.textAlign="center";cx.font="28px Arial";cx.fillText("Загрузи фотографии для коллажа",w/2,h/2);return;
+  }
+  const imgs=collageImgs;
+  if($("collageLayout").value==="strip"){
+    const cell=(w-gap*(imgs.length+1))/imgs.length;
+    imgs.forEach((img,i)=>drawCover(cx,img,gap+i*(cell+gap),gap,cell,h-gap*2));
+  }else if($("collageLayout").value==="hero"&&imgs.length>1){
+    drawCover(cx,imgs[0],gap,gap,w*.59-gap*1.5,h-gap*2);
+    const rest=imgs.slice(1),rh=(h-gap*(rest.length+1))/rest.length,rw=w*.39-gap*1.5;
+    rest.forEach((img,i)=>drawCover(cx,img,w*.61+gap,gap+i*(rh+gap),rw,rh));
+  }else{
+    const cols=Math.ceil(Math.sqrt(imgs.length)),rows=Math.ceil(imgs.length/cols);
+    const cw=(w-gap*(cols+1))/cols,ch=(h-gap*(rows+1))/rows;
+    imgs.forEach((img,i)=>drawCover(cx,img,gap+(i%cols)*(cw+gap),gap+Math.floor(i/cols)*(ch+gap),cw,ch));
+  }
+}
+$("collageDownload").onclick=()=>{if(!collageImgs.length)return toast("Сначала выбери фотографии.");drawCollage();downloadCanvas(collage,"pixora-collage.png")};
+
+/* STICKER LAB */
+const sticker=$("stickerCanvas"),sx=sticker.getContext("2d");
+let stickerBg=null,stickerItems=[];
+$("stickerBgFile").addEventListener("change",e=>{if(e.target.files[0])loadImageFile(e.target.files[0],img=>{stickerBg=img;drawStickers()});e.target.value=""});
+$("stickerSize").addEventListener("input",()=>$("stickerSizeOut").textContent=$("stickerSize").value+"px");
+function drawStickers(){
+  const w=sticker.width,h=sticker.height;
+  const grad=sx.createLinearGradient(0,0,w,h);grad.addColorStop(0,"#11112b");grad.addColorStop(.5,"#39266a");grad.addColorStop(1,"#13527a");
+  sx.fillStyle=grad;sx.fillRect(0,0,w,h);
+  for(let i=0;i<45;i++){sx.fillStyle="#ffffff35";sx.beginPath();sx.arc((i*139)%w,(i*79)%h,i%2+1,0,Math.PI*2);sx.fill()}
+  if(stickerBg)drawCover(sx,stickerBg,0,0,w,h);
+  stickerItems.forEach(item=>drawStickerItem(item));
+}
+function drawStickerItem(item){
+  sx.save();sx.fillStyle=item.color;sx.textAlign="center";sx.textBaseline="middle";
+  sx.font=`900 ${item.size}px Arial`;sx.shadowColor=item.color;sx.shadowBlur=15;
+  sx.fillText(item.text,item.x,item.y);sx.restore();
+}
+$("addSticker").onclick=()=>{
+  const text=$("stickerText").value.trim();if(!text)return toast("Введи текст или символ.");
+  const pos=$("stickerPosition").value;
+  stickerItems.push({text,color:$("stickerColor").value,size:Number($("stickerSize").value),x:sticker.width/2,y:pos==="top"?sticker.height*.2:pos==="bottom"?sticker.height*.8:sticker.height/2});
+  drawStickers();toast("Элемент добавлен.");
+};
+$("clearStickers").onclick=()=>{stickerItems=[];stickerBg=null;drawStickers();toast("Холст сброшен.")};
+$("stickerDownload").onclick=()=>{drawStickers();downloadCanvas(sticker,"pixora-stickers.png")};
+
+/* REELS STUDIO */
+const video=$("videoSource"),vc=$("videoCanvas"),vx=vc.getContext("2d");
+let videoUrl=null,recording=false,animationFrame=0;
+$("videoFile").addEventListener("change",e=>{
+  const file=e.target.files[0];if(!file)return;
+  if(!file.type.startsWith("video/"))return toast("Выбери видеофайл.");
+  if(videoUrl)URL.revokeObjectURL(videoUrl);
+  videoUrl=URL.createObjectURL(file);video.src=videoUrl;video.hidden=false;$("videoEmpty").hidden=true;
+  video.onloadedmetadata=()=>{
+    $("videoStatus").textContent=`${video.videoWidth} × ${video.videoHeight} · ${video.duration.toFixed(1)} сек.`;
+    $("videoStart").value=0;$("videoEnd").value=Math.min(10,video.duration).toFixed(1);
+    drawVideoFrame();
+  };
+  e.target.value="";
+});
+function drawVideoFrame(){
+  if(!video.videoWidth||!video.videoHeight)return;
+  const w=vc.width,h=vc.height;
+  vx.fillStyle="#080910";vx.fillRect(0,0,w,h);
+  vx.save();vx.filter=$("videoFilter").value;
+  drawCover(vx,video,0,0,w,h);vx.restore();
+  const text=$("videoText").value.trim();
+  if(text){
+    vx.save();vx.textAlign="center";vx.textBaseline="middle";vx.fillStyle=$("videoTextColor").value;
+    vx.font="900 45px Arial";vx.lineWidth=4;vx.strokeStyle="#000";
+    wrapCanvasText(vx,text,w*.85).slice(0,3).forEach((line,i)=>{
+      const y=h*.78+i*55;vx.strokeText(line,w/2,y);vx.fillText(line,w/2,y);
+    });vx.restore();
+  }
+}
+["videoText","videoTextColor","videoFilter"].forEach(id=>$(id).addEventListener("input",drawVideoFrame));
+video.addEventListener("play",()=>{
+  cancelAnimationFrame(animationFrame);
+  const loop=()=>{if(!video.paused&&!video.ended){drawVideoFrame();animationFrame=requestAnimationFrame(loop)}};
+  loop();
+});
+video.addEventListener("seeked",drawVideoFrame);
+$("videoPlay").onclick=async()=>{
+  if(!video.src)return toast("Сначала выбери видео.");
+  const start=Math.max(0,Number($("videoStart").value)||0);
+  try{video.currentTime=Math.min(start,Math.max(0,video.duration-.1));await video.play();toast("Видео воспроизводится.");}
+  catch(e){toast("Браузер не смог воспроизвести видео.");}
+};
+$("videoExport").onclick=async()=>{
+  if(!video.src)return toast("Сначала выбери видео.");
+  if(!("MediaRecorder" in window)||!vc.captureStream)return toast("Запись видео не поддерживается этим браузером.");
+  if(recording)return;
+  const start=Math.max(0,Number($("videoStart").value)||0);
+  const end=Math.min(video.duration,Math.max(start+.2,Number($("videoEnd").value)||video.duration));
+  try{
+    video.pause();video.currentTime=Math.min(start,Math.max(0,video.duration-.1));
+    await new Promise(resolve=>{
+      if(video.readyState>=2&&Math.abs(video.currentTime-start)<.05)resolve();
+      else video.addEventListener("seeked",resolve,{once:true});
+    });
+    drawVideoFrame();
+    const stream=vc.captureStream(30);
+    let mime="video/webm";
+    if(MediaRecorder.isTypeSupported("video/webm;codecs=vp9"))mime="video/webm;codecs=vp9";
+    const recorder=new MediaRecorder(stream,{mimeType:mime}),chunks=[];
+    recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+    recorder.onstop=()=>{
+      recording=false;
+      const blob=new Blob(chunks,{type:"video/webm"});downloadBlob(blob,"pixora-reels.webm");trackExport();
+      toast("Запись готова. Звук исходного видео может не попасть в экспорт.");
+    };
+    recorder.start();recording=true;video.currentTime=start;
+    await video.play();
+    const tick=()=>{
+      if(!recording)return;
+      drawVideoFrame();
+      if(video.currentTime>=end||video.ended){video.pause();recorder.stop();return}
+      requestAnimationFrame(tick);
+    };
+    tick();toast("Идёт запись выбранного фрагмента...");
+  }catch(e){recording=false;toast("Не удалось записать видео. Попробуй другой браузер.");}
+};
+
+/* TEMPLATE SHORTCUTS & INITIALIZATION */
+$("aboutBtn").addEventListener("click",()=>{});
+drawPoster();drawCollage();drawStickers();updateStats();renderProjects();
+</script>
+</body>
+</html>
